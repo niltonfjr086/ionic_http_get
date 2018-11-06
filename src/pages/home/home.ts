@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { TransactionsProvider } from '../../providers/transactions/transactions';
+import { DetailsPage } from '../details/details';
+import { FilterPage } from '../filter/filter';
 
 @Component({
   selector: 'page-home',
@@ -9,34 +11,41 @@ import { TransactionsProvider } from '../../providers/transactions/transactions'
 export class HomePage {
 
   private transactions = [];
-  private lazyList = [];
+  private paginatedList = [];
 
-  constructor(public navCtrl: NavController, public transactionsProvider: TransactionsProvider) {
+  constructor(public navCtrl: NavController, public transactionsProvider: TransactionsProvider, public modalCtrl: ModalController) {
 
-    transactionsProvider.getTransactions().then(
-      (list) => {
+    transactionsProvider.getTransactions()
+      .then((list) => {
         this.transactions = list;
-
-        for (let i = 0; i < 4; i++) {
-          this.lazyList.push(this.transactions[i]);
-        }
-
+        this.buildPagination();
       });
 
   }
 
-
-  doInfinite(infiniteScroll) {
-
-    setTimeout(() => {
-      for (let i = 0; i < 2; i++) {
-        if (this.lazyList.length !== this.transactions.length) {
-          this.lazyList.push(this.transactions[this.lazyList.length]);
+  private buildPagination() {
+    let page = 0;
+    this.transactions.forEach((item, index) => {
+      if (index % 3 === 0) {
+        this.paginatedList.push([]);
+        if (index !== 0) {
+          page++;
         }
       }
+      this.paginatedList[page].push(item);
+    });
+  }
 
-      infiniteScroll.complete();
-    }, 500);
+
+  presentDetailsModal(transaction) {
+    let detailModal = this.modalCtrl.create(DetailsPage, { item: transaction });
+    detailModal.present();
+  }
+
+  presentFilterModal() {
+    let filterModal = this.modalCtrl.create(FilterPage, { item: this.transactions });
+    filterModal.onDidDismiss((res)=>{console.log(res)});
+    filterModal.present();
   }
 
 }

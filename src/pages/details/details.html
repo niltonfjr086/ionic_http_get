@@ -1,0 +1,50 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Detalhes Transação</ion-title>
+    <ion-buttons end>
+      <button ion-button clear (click)="dismiss();">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card>
+
+    <ion-card-header>
+      Tipo: {{transaction.tipo.toUpperCase()}} - Situação: {{transaction.status}}
+    </ion-card-header>
+    <ion-card-content>
+
+      Código: {{transaction.id}} <br>
+
+      <br>
+
+      Beneficiário: <br>
+
+      Agência: {{transaction.beneficiario.agencia}} <br>
+      Banco: {{transaction.beneficiario.banco}} <br>
+      Conta: {{transaction.beneficiario.conta}} <br>
+      Nome: {{transaction.beneficiario.nome}} <br>
+
+      <br>
+
+      Pagador: <br>
+      Agência: {{transaction.pagador.agencia}} <br>
+      Banco: {{transaction.pagador.banco}} <br>
+      Conta: {{transaction.pagador.conta}} <br>
+      Nome: {{transaction.pagador.nome}} <br>
+
+      <br>
+
+      Valor: {{transaction.valor | currency:'BRL'}}
+
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>
