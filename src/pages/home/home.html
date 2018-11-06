@@ -1,14 +1,38 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Ionic App Nix Bank
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+
+
+    <ion-list>
+
+        <ion-item *ngFor="let item of lazyList">
+          <ion-card>
+    
+            <ion-card-header>
+              Tipo: {{item.tipo}} - Situação: {{item.status}}
+            </ion-card-header>
+            <ion-card-content>
+              Beneficiário: {{item.beneficiario.nome}} <br>
+              Pagador: {{item.pagador.nome}} <br>
+              Valor: {{item.valor | currency:'BRL'}}
+            </ion-card-content>
+    
+          </ion-card>
+        </ion-item>
+    
+      </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content>
+
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+
 </ion-content>

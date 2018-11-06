@@ -1,5 +1,7 @@
 {
   "name": "ionic_http_get",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }
