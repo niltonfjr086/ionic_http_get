@@ -11,12 +11,12 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content padding  id="main">
 
   <ion-slides pager>
     <ion-slide *ngFor="let page of paginatedList; let indexPages = index">
 
-      <ion-list>
+
 
         <ion-item *ngFor="let item of page; let indexTransaction = index" (click)="presentDetailsModal(item);">
           <ion-card>
@@ -27,12 +27,12 @@
             <ion-card-content>
               Beneficiário: {{item.beneficiario.nome}} <br>
               Pagador: {{item.pagador.nome}} <br>
-              Valor: {{item.valor | currency:'BRL'}}
+              Valor: R$ {{item.valor.toString().replace(".", ",")}}
             </ion-card-content>
           </ion-card>
         </ion-item>
 
-      </ion-list>
+   
 
 
     </ion-slide>

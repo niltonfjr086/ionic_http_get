@@ -41,7 +41,7 @@
 
       <br>
 
-      Valor: {{transaction.valor | currency:'BRL'}}
+      Valor: R$ {{transaction.valor.toString().replace(".", ",")}}
 
     </ion-card-content>
 

@@ -12,5 +12,39 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-list>
 
+    <ion-item>
+      <ion-label>Tipo Transação</ion-label>
+      <ion-select [(ngModel)]="filterParams.tipo" (ngModelChange)="setParamType($event, 'tipo');">
+        <ion-option *ngFor="let item of filters.tipo" value="{{item}}">{{item}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Beneficiário</ion-label>
+      <ion-select [(ngModel)]="filterParams.nome_beneficiario" (ngModelChange)="setParamType($event, 'nome_beneficiario');">
+        <ion-option *ngFor="let item of filters.nome_beneficiario" value="{{item}}">{{item}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Pagador</ion-label>
+      <ion-select [(ngModel)]="filterParams.nome_pagador" (ngModelChange)="setParamType($event, 'nome_pagador');">
+        <ion-option *ngFor="let item of filters.nome_pagador" value="{{item}}">{{item}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Status</ion-label>
+      <ion-select [(ngModel)]="filterParams.status" (ngModelChange)="setParamType($event, 'status');">
+        <ion-option *ngFor="let item of filters.status" value="{{item}}">{{item}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <button ion-button (click)="search()">Pesquisar</button>
+    </ion-item>
+
+  </ion-list>
 </ion-content>

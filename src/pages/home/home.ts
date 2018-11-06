@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, AlertController, LoadingController } from 'ionic-angular';
 import { TransactionsProvider } from '../../providers/transactions/transactions';
 import { DetailsPage } from '../details/details';
 import { FilterPage } from '../filter/filter';
@@ -12,18 +12,30 @@ export class HomePage {
 
   private transactions = [];
   private paginatedList = [];
+  private loading;
 
-  constructor(public navCtrl: NavController, public transactionsProvider: TransactionsProvider, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public transactionsProvider: TransactionsProvider, public modalCtrl: ModalController,
+    private alertCtrl: AlertController, public loadingCtrl: LoadingController) {
 
+    this.buildLoadingCtrl();
     transactionsProvider.getTransactions()
       .then((list) => {
         this.transactions = list;
         this.buildPagination();
-      });
+        this.loading.dismiss();
+      }).catch((e) => { console.error(e); this.presentAlert(); this.loading.dismiss(); });
 
   }
 
+  private buildLoadingCtrl() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Carregando dados...'
+    });
+    this.loading.present();
+  }
+
   private buildPagination() {
+    this.paginatedList = [];
     let page = 0;
     this.transactions.forEach((item, index) => {
       if (index % 3 === 0) {
@@ -43,9 +55,37 @@ export class HomePage {
   }
 
   presentFilterModal() {
-    let filterModal = this.modalCtrl.create(FilterPage, { item: this.transactions });
-    filterModal.onDidDismiss((res)=>{console.log(res)});
-    filterModal.present();
+    this.buildLoadingCtrl();
+    this.transactionsProvider.getTransactions()
+      .then((list) => {
+
+        let filterModal = this.modalCtrl.create(FilterPage, { item: list });
+        filterModal.onDidDismiss((filteredList) => {
+          this.transactions = filteredList;
+          this.buildPagination();
+          this.loading.dismiss();
+        });
+        filterModal.present();
+
+      }).catch((e) => { console.error(e); this.presentAlert(); this.loading.dismiss();});
+
+  }
+
+  presentAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Erro de retorno',
+      subTitle: 'Ao requisitar os dados o servidor retornou um erro, verifique a conexão e tente novamente.',
+      buttons: [
+        {
+          text: 'OK',
+          role: 'cancel',
+          handler: () => {
+            alert = null;
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }
