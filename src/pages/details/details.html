@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar class="custom-schema">
     <ion-title>Detalhes Transação</ion-title>
     <ion-buttons end>
       <button ion-button clear (click)="dismiss();">
@@ -11,9 +11,9 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="custom-schema">
 
-  <ion-card>
+  <ion-card class="custom-schema">
 
     <ion-card-header>
       Tipo: {{transaction.tipo.toUpperCase()}} - Situação: {{transaction.status}}

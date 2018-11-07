@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar class="custom-schema">
     <ion-title>Transações</ion-title>
     <ion-buttons end>
       <button ion-button clear (click)="presentFilterModal();">
@@ -11,15 +11,14 @@
 
 </ion-header>
 
-<ion-content padding  id="main">
+<ion-content padding class="custom-schema">
 
-  <ion-slides pager>
-    <ion-slide *ngFor="let page of paginatedList; let indexPages = index">
+  <ion-slides #showSlider class="custom-schema" pager>
+    <ion-slide *ngFor="let page of paginatedList; let indexPages = index" class="custom-schema">
 
 
-
-        <ion-item *ngFor="let item of page; let indexTransaction = index" (click)="presentDetailsModal(item);">
-          <ion-card>
+        <ion-item *ngFor="let item of page; let indexTransaction = index" (click)="presentDetailsModal(item);" class="custom-schema">
+          <ion-card class="custom-schema">
             <ion-card-header>
               Tipo: {{item.tipo.toUpperCase()}} - Situação: {{item.status}}
             </ion-card-header>
@@ -31,8 +30,6 @@
             </ion-card-content>
           </ion-card>
         </ion-item>
-
-   
 
 
     </ion-slide>

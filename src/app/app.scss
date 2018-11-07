@@ -15,12 +15,14 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-
-// #main {
-//     background: color($colors, dark, base);
-//     background-color: color($colors, danger, base);
-//   }
-
 ion-slides {
     height: auto;
-  }
+    .slide-zoom {
+		height: 100%;
+	}
+}
+
+.custom-schema {
+    background-color: map-get($colors, primary);
+    background: map-get($colors, light);
+}

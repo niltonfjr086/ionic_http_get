@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, ModalController, AlertController, LoadingController } from 'ionic-angular';
+import { Component, ViewChild, Input } from '@angular/core';
+import { NavController, ModalController, AlertController, LoadingController, Slides } from 'ionic-angular';
 import { TransactionsProvider } from '../../providers/transactions/transactions';
 import { DetailsPage } from '../details/details';
 import { FilterPage } from '../filter/filter';
@@ -9,6 +9,7 @@ import { FilterPage } from '../filter/filter';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  @ViewChild('showSlider') slider: Slides;
 
   private transactions = [];
   private paginatedList = [];
@@ -18,13 +19,17 @@ export class HomePage {
     private alertCtrl: AlertController, public loadingCtrl: LoadingController) {
 
     this.buildLoadingCtrl();
-    transactionsProvider.getTransactions()
+    this.getTransactions();
+
+  }
+
+  private getTransactions() {
+    this.transactionsProvider.getTransactions()
       .then((list) => {
         this.transactions = list;
         this.buildPagination();
         this.loading.dismiss();
       }).catch((e) => { console.error(e); this.presentAlert(); this.loading.dismiss(); });
-
   }
 
   private buildLoadingCtrl() {
@@ -32,6 +37,10 @@ export class HomePage {
       content: 'Carregando dados...'
     });
     this.loading.present();
+    setTimeout(() => {
+      if (!this.transactions)
+        this.getTransactions();
+    }, 3000);
   }
 
   private buildPagination() {
@@ -63,21 +72,34 @@ export class HomePage {
         filterModal.onDidDismiss((filteredList) => {
           this.transactions = filteredList;
           this.buildPagination();
+          this.slider.update();
+          this.slider.slideTo(0, 0, true);
           this.loading.dismiss();
+
+          // console.log("presentFilterModal()");
+          // console.log();
+
         });
         filterModal.present();
 
-      }).catch((e) => { console.error(e); this.presentAlert(); this.loading.dismiss();});
+      }).catch((e) => { console.error(e); this.presentAlert(); this.loading.dismiss(); });
 
   }
 
   presentAlert() {
     let alert = this.alertCtrl.create({
       title: 'Erro de retorno',
-      subTitle: 'Ao requisitar os dados o servidor retornou um erro, verifique a conexão e tente novamente.',
+      subTitle: 'Ao requisitar os dados o servidor retornou um erro, verifique a conexão. Tentar novamente?',
       buttons: [
         {
-          text: 'OK',
+          text: 'Sim',
+          handler: () => {
+            this.buildLoadingCtrl();
+            this.getTransactions();
+          }
+        },
+        {
+          text: 'Não',
           role: 'cancel',
           handler: () => {
             alert = null;

@@ -33,13 +33,52 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
+
+
+// DEFAULT SCHEMA
+// $colors: (
+//   primary:    #488aff,
+//   secondary:  #32db64,
+//   danger:     #f53d3d,
+//   light:      #f4f4f4,
+//   dark:       #222
+// );
+
+// GREY SCHEMA
+// $colors: (
+//   primary:    #37474f,
+//   secondary:  #263238,
+//   danger:     #f53d3d,
+//   light:      #b0bec5,
+//   dark:       #222
+// );
+
+// BLUE SCHEMA
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
+  primary:    #01579b,
+  secondary:  #0277bd,
   danger:     #f53d3d,
-  light:      #f4f4f4,
+  light:      #81d4fa,
   dark:       #222
 );
+
+// YELLOW SCHEMA
+// $colors: (
+//   primary:    #f9a825,
+//   secondary:  #f57f17,
+//   danger:     #f53d3d,
+//   light:      #fff59d,
+//   dark:       #222
+// );
+
+// GREEN SCHEMA
+// $colors: (
+//   primary:    #2e7d32,
+//   secondary:  #1b5e20,
+//   danger:     #f53d3d,
+//   light:      #a5d6a7,
+//   dark:       #222
+// );
 
 
 // App iOS Variables
@@ -72,6 +111,9 @@ $colors: (
 
 // @import "ionic.theme.default";
 // @import "ionic.theme.dark";
+
+
+
 
 // Ionicons
 // --------------------------------------------------

@@ -10,18 +10,7 @@
 # 1.6) gradle;
 # 1.7) ionic-cli;
 #
-# 2) executar: npm install
-# 3) executar: ionic cordova run android
+# 2) executar dentro da pasta do projeto: npm install
+# 3) executar dentro da pasta do projeto: ionic cordova run android
 *Para baixar e montar o app com os plugins na plataforma android
 #
-#
-#
-#
-echo "# project-name" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git remote add origin https://github.com/...git
-git push -u origin master
-git remote add origin https://github.com/...git
-git push -u origin master
